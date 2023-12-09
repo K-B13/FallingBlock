@@ -25,6 +25,59 @@ class Board {
   }
 }
 
+class iPiece {
+  constructor() {
+    this.color = 'lightblue'
+    this.rotateIndex = 1
+    this.center = [5, 1]
+
+    this.calculatePieces()
+    this.tiles = [this.top, this.center, this.botMiddle, this.bot]
+  }
+
+  // Calculate the 3 coordinates that are not the center
+  calculatePieces() {
+    this.top = [ ...this.center ]
+    this.top[this.rotateIndex] = this.top[this.rotateIndex] - 1
+    this.botMiddle = [ ...this.center ]
+    this.botMiddle[this.rotateIndex] = this.botMiddle[this.rotateIndex] + 1
+    this.bot = [ ...this.center ]
+    this.bot[this.rotateIndex] = this.bot[this.rotateIndex] + 2
+  }
+
+  // Change the rotate index between 0 and 1 so the piece can figure out which
+  // orientation it is
+  rotate() {
+    this.rotateIndex = (this.rotateIndex + 1) % 2
+    this.calculatePieces()
+  }
+
+  // Method to lower the shape, make sure the shape doesn't go out of the bottom of the screen. The center is decreased by one and then the rest are recalculated.
+  fall() {
+    if (this.bot[1] < 11) {
+      this.center[1] += 1
+      this.calculatePieces()
+    }
+  }
+
+  // Method to move the shape to the left, make sure the shape doesn't go out of the left of the screen. The center is moved by one to the left and then the rest are recalculated.
+  left() {
+    if (this.top[0] > 0){
+      this.center[0] = this.center[0] - 1
+      this.calculatePieces()
+    }
+  }
+
+  // Method to move the shape to the right, make sure the shape doesn't go out of the right of the screen. The center is moved by one to the right and then the rest are recalculated.
+  right() {
+    if (this.bot[0] < 10) {
+      this.center[0] = this.center[0] + 1
+      this.calculatePieces()
+    }
+  }
+}
+
+// const newPiece = new iPiece
 // const board = new Board
 
 // board.createBoard()
