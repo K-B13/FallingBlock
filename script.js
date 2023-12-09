@@ -32,7 +32,6 @@ class iPiece {
     this.center = [5, 1]
 
     this.calculatePieces()
-    this.tiles = [this.top, this.center, this.botMiddle, this.bot]
   }
 
   // Calculate the 3 coordinates that are not the center
@@ -43,6 +42,7 @@ class iPiece {
     this.botMiddle[this.rotateIndex] = this.botMiddle[this.rotateIndex] + 1
     this.bot = [ ...this.center ]
     this.bot[this.rotateIndex] = this.bot[this.rotateIndex] + 2
+    this.tiles = [this.top, this.center, this.botMiddle, this.bot]
   }
 
   // Change the rotate index between 0 and 1 so the piece can figure out which
@@ -77,8 +77,67 @@ class iPiece {
   }
 }
 
-// const newPiece = new iPiece
+class oPiece {
+  constructor() {
+    this.color = 'yellow'
+    this.center = [5, 0]
+    this.calculatePieces()
+  }
+
+  calculatePieces() {
+    this.bot = [ ...this.center ]
+    this.bot[1] = this.bot[1] + 1
+
+    this.botRight = [ ...this.center ]
+    this.botRight.forEach((coord, index) => {
+      this.botRight[index] = coord + 1
+    })
+
+    this.topRight = [ ...this.center ]
+    this.topRight[0] = this.topRight[0] + 1
+    this.tiles = [this.bot, this.botRight, this.center, this.topRight]
+  }
+
+  fall() {
+    if (this.bot[1] < 11) {
+      this.center[1] += 1
+      this.calculatePieces()
+    }
+  }
+
+  left() {
+    if (this.center[0] > 0) {
+      this.center[0] -= 1
+      this.calculatePieces()
+    }
+  }
+
+  right() {
+    if (this.center[0] < 10) {
+      this.center[0] += 1
+      this.calculatePieces()
+    }
+  }
+}
+
+// const newPiece = new oPiece()
+// console.log(newPiece.center)
+// console.log(newPiece.tiles)
+// newPiece.fall()
+// console.log(newPiece.center)
+// console.log(newPiece.tiles)
+
+// const newPiece = new iPiece()
+// newPiece.tiles.forEach((tile) => {
+//   console.log(tile)
+// })
+// newPiece.left()
+// newPiece.tiles.forEach((tile) => {
+//   console.log(tile)
+// })
+
 // const board = new Board
 
 // board.createBoard()
 // console.log(board.grid)
+
