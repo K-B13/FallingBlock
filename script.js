@@ -45,7 +45,18 @@ class Game {
         this.removeTiles(this.currentPiece)
         this.currentPiece.left();
         this.plotTile(this.currentPiece)
-        
+      }
+
+      if (e.key === 'ArrowUp') {
+        this.removeTiles(this.currentPiece)
+        this.currentPiece.rotate();
+        this.plotTile(this.currentPiece)
+      }
+
+      if (e.key === 'ArrowDown') {
+        this.removeTiles(this.currentPiece)
+        this.currentPiece.fall();
+        this.plotTile(this.currentPiece)
       }
     })
   }
@@ -58,13 +69,12 @@ class Game {
         this.control += 1
       }, 1000)
   }
+
   startGame() {
     this.moveTile()
     this.playGame()
   }
 }
-
- 
 
 class Board {
   constructor() {
@@ -173,6 +183,10 @@ class oPiece {
       this.center[1] += 1
       this.calculatePieces()
     }
+  }
+
+  rotate() {
+    console.log("Nothing happens ye fool")
   }
 
   left() {
