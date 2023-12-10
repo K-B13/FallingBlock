@@ -1,3 +1,72 @@
+class Game {
+  constructor() {
+    this.gameBoard = new Board
+    this.gameBoard.createBoard()
+
+    this.possiblePieces = [iPiece, oPiece]
+    this.control = 0
+    this.activeGame = true
+
+    this.selectPiece()
+  }
+
+  selectPiece() {
+    const randomNumber = Math.floor(Math.random() * this.possiblePieces.length)
+    const selectedPiece = this.possiblePieces[randomNumber]
+    this.currentPiece = new selectedPiece
+  }
+
+  generateNewPiece() {
+    this.plotTile(this.currentPiece)
+  }
+
+  plotTile(piece) {
+    piece.tiles.forEach((tile) => {
+      const [x, y] = tile;
+      this.gameBoard.grid[y][x].classList.add(piece.color)
+    })
+  }
+
+  removeTiles(piece) {
+    piece.tiles.forEach((tile) => {
+      const [x, y] = tile;
+      this.gameBoard.grid[y][x].classList.remove(piece.color)
+    })
+  }
+
+  moveTile(interval) {
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') {
+        this.removeTiles(this.currentPiece)
+        this.currentPiece.right();
+        this.plotTile(this.currentPiece)
+        this.control += 1
+        console.log(this.control)
+      }
+      if (e.key === 'ArrowLeft') {
+        this.removeTiles(this.currentPiece)
+        this.currentPiece.left();
+        this.plotTile(this.currentPiece)
+        
+      }
+    })
+    clearInterval(interval)
+    this.playGame()
+  }
+
+  playGame() {
+    // while (this.activeGame) {
+      const interval = setInterval(() => {
+        this.removeTiles(this.currentPiece)
+        this.currentPiece.fall()
+        this.plotTile(this.currentPiece)
+        this.control += 1
+        this.moveTile(interval)
+      }, 1000)
+    // }
+  }
+}
+
 class Board {
   constructor() {
     this.grid = [];
@@ -54,7 +123,7 @@ class iPiece {
 
   // Method to lower the shape, make sure the shape doesn't go out of the bottom of the screen. The center is decreased by one and then the rest are recalculated.
   fall() {
-    if (this.bot[1] < 11) {
+    if (this.bot[1] < 10) {
       this.center[1] += 1
       this.calculatePieces()
     }
@@ -73,6 +142,7 @@ class iPiece {
     if (this.bot[0] < 10) {
       this.center[0] = this.center[0] + 1
       this.calculatePieces()
+      console.log(this.center)
     }
   }
 }
@@ -99,7 +169,7 @@ class oPiece {
   }
 
   fall() {
-    if (this.bot[1] < 11) {
+    if (this.bot[1] < 10) {
       this.center[1] += 1
       this.calculatePieces()
     }
@@ -113,7 +183,7 @@ class oPiece {
   }
 
   right() {
-    if (this.center[0] < 10) {
+    if (this.topRight[0] < 10) {
       this.center[0] += 1
       this.calculatePieces()
     }
@@ -141,3 +211,16 @@ class oPiece {
 // board.createBoard()
 // console.log(board.grid)
 
+const game = new Game
+game.generateNewPiece()
+
+const btn = document.querySelector('button')
+btn.onclick = () => {
+  game.playGame()
+}
+
+const btn2 = document.querySelector('.test-btn')
+btn2.onclick = () => {
+  // console.log(game.currentPiece)
+  game.activeGame = !game.activeGame
+}
