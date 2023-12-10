@@ -5,7 +5,6 @@ class Game {
 
     this.possiblePieces = [iPiece, oPiece]
     this.control = 0
-    this.activeGame = true
 
     this.selectPiece()
   }
@@ -34,15 +33,14 @@ class Game {
     })
   }
 
-  moveTile(interval) {
+  moveTile() {
     document.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowRight') {
         this.removeTiles(this.currentPiece)
         this.currentPiece.right();
         this.plotTile(this.currentPiece)
-        this.control += 1
-        console.log(this.control)
       }
+
       if (e.key === 'ArrowLeft') {
         this.removeTiles(this.currentPiece)
         this.currentPiece.left();
@@ -50,22 +48,23 @@ class Game {
         
       }
     })
-    clearInterval(interval)
-    this.playGame()
   }
 
   playGame() {
-    // while (this.activeGame) {
       const interval = setInterval(() => {
         this.removeTiles(this.currentPiece)
         this.currentPiece.fall()
         this.plotTile(this.currentPiece)
         this.control += 1
-        this.moveTile(interval)
       }, 1000)
-    // }
+  }
+  startGame() {
+    this.moveTile()
+    this.playGame()
   }
 }
+
+ 
 
 class Board {
   constructor() {
@@ -88,6 +87,7 @@ class Board {
         tile.classList.add(`row${i}`);
         row.appendChild(tile);
       }
+
       let entireRow = Array.from(document.querySelectorAll(`.row${i}`));
       this.grid.push(entireRow)
     }
@@ -190,37 +190,10 @@ class oPiece {
   }
 }
 
-// const newPiece = new oPiece()
-// console.log(newPiece.center)
-// console.log(newPiece.tiles)
-// newPiece.fall()
-// console.log(newPiece.center)
-// console.log(newPiece.tiles)
-
-// const newPiece = new iPiece()
-// newPiece.tiles.forEach((tile) => {
-//   console.log(tile)
-// })
-// newPiece.left()
-// newPiece.tiles.forEach((tile) => {
-//   console.log(tile)
-// })
-
-// const board = new Board
-
-// board.createBoard()
-// console.log(board.grid)
-
 const game = new Game
 game.generateNewPiece()
 
 const btn = document.querySelector('button')
 btn.onclick = () => {
-  game.playGame()
-}
-
-const btn2 = document.querySelector('.test-btn')
-btn2.onclick = () => {
-  // console.log(game.currentPiece)
-  game.activeGame = !game.activeGame
+  game.startGame()
 }
