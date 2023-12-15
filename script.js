@@ -5,8 +5,9 @@ class Game {
 
     this.possiblePieces = [iPiece, oPiece]
     this.control = 0
+    this.currentPiece = null
 
-    this.selectPiece()
+    this.generateNewPiece()
   }
 
   selectPiece() {
@@ -16,6 +17,7 @@ class Game {
   }
 
   generateNewPiece() {
+    this.selectPiece()
     this.plotTile(this.currentPiece)
   }
 
@@ -55,16 +57,20 @@ class Game {
 
       if (e.key === 'ArrowDown') {
         this.removeTiles(this.currentPiece)
-        this.currentPiece.fall();
+        this.currentPiece.checkFall(this.gameBoard.grid)
+        // if (!this.currentPiece.active) this.generateNewPiece()
+        // else this.plotTile(this.currentPiece)
         this.plotTile(this.currentPiece)
       }
     })
   }
 
   playGame() {
-      const interval = setInterval(() => {
+      setInterval(() => {
+        // -- Chris thought -- Try to calculate fall placement before it is removed
         this.removeTiles(this.currentPiece)
-        this.currentPiece.fall()
+        this.currentPiece.checkFall(this.gameBoard.grid)
+        // if (!this.currentPiece.active) this.generateNewPiece()
         this.plotTile(this.currentPiece)
         this.control += 1
       }, 1000)
@@ -80,25 +86,28 @@ class Board {
   constructor() {
     this.grid = [];
     this.width = 11;
-    this.height = 11;
+    this.height = 12;
     this.board = document.querySelector('.board-container');
   }
   
   createBoard(){
     for (let i = 0; i < this.height; i++){
-      let row = document.createElement('div');
+      const row = document.createElement('div');
       row.classList.add('row');
       row.dataset.rowNumber = `${i}`
       this.board.appendChild(row);
       for (let j = 0; j < this.width; j++){
-        let tile = document.createElement('div');
+        const tile = document.createElement('div');
         tile.dataset.tileNumber = `${j}`
-        tile.dataset.taken = false;
+        if (j === 0 || j=== this.width - 1 || i === 0 || i === this.height - 1) {
+          tile.dataset.taken = 'true'
+          tile.classList.add('border');
+        } else tile.dataset.taken = 'false';
         tile.classList.add(`row${i}`);
         row.appendChild(tile);
       }
 
-      let entireRow = Array.from(document.querySelectorAll(`.row${i}`));
+      const entireRow = Array.from(document.querySelectorAll(`.row${i}`));
       this.grid.push(entireRow)
     }
   }
@@ -108,7 +117,8 @@ class iPiece {
   constructor() {
     this.color = 'lightblue'
     this.rotateIndex = 1
-    this.center = [5, 1]
+    this.active = true
+    this.center = [5, 2]
 
     this.calculatePieces()
   }
@@ -121,14 +131,37 @@ class iPiece {
     this.botMiddle[this.rotateIndex] = this.botMiddle[this.rotateIndex] + 1
     this.bot = [ ...this.center ]
     this.bot[this.rotateIndex] = this.bot[this.rotateIndex] + 2
+
     this.tiles = [this.top, this.center, this.botMiddle, this.bot]
   }
 
   // Change the rotate index between 0 and 1 so the piece can figure out which
   // orientation it is
   rotate() {
+  // if (this.bot[0] > 9 || this.top[0] < 1)
     this.rotateIndex = (this.rotateIndex + 1) % 2
     this.calculatePieces()
+  }
+
+  // Method to check if the shape can move down then the method fall will be called if not then it will return false.
+  checkFall(grid) {
+    let check = 'false'
+    this.tiles.forEach(tile => {
+      let [x, y] = tile
+      y += 1
+      if(check === 'false') {
+        check = grid[y][x].getAttribute(['data-taken'])
+      }
+    })
+    if (check === 'true') {
+      this.tiles.forEach(tile => {
+        const [x, y] = tile
+        grid[y][x].dataset.taken = 'true'
+      })
+      this.active = false
+    } else {
+      this.fall()
+    }
   }
 
   // Method to lower the shape, make sure the shape doesn't go out of the bottom of the screen. The center is decreased by one and then the rest are recalculated.
@@ -152,7 +185,6 @@ class iPiece {
     if (this.bot[0] < 10) {
       this.center[0] = this.center[0] + 1
       this.calculatePieces()
-      console.log(this.center)
     }
   }
 }
@@ -160,7 +192,8 @@ class iPiece {
 class oPiece {
   constructor() {
     this.color = 'yellow'
-    this.center = [5, 0]
+    this.active = true
+    this.center = [5, 1]
     this.calculatePieces()
   }
 
@@ -175,7 +208,28 @@ class oPiece {
 
     this.topRight = [ ...this.center ]
     this.topRight[0] = this.topRight[0] + 1
+
     this.tiles = [this.bot, this.botRight, this.center, this.topRight]
+  }
+
+  checkFall(grid) {
+    let check = 'false'
+    this.tiles.forEach(tile => {
+      let [x, y] = tile
+      y += 1
+      if(check === 'false') {
+        check = grid[y][x].getAttribute(['data-taken'])
+      }
+    })
+    if (check === 'true') {
+      this.tiles.forEach(tile => {
+        const [x, y] = tile
+        grid[y][x].dataset.taken = 'true'
+      })
+      this.active = false
+    } else {
+      this.fall()
+    }
   }
 
   fall() {
@@ -205,9 +259,14 @@ class oPiece {
 }
 
 const game = new Game
-game.generateNewPiece()
 
 const btn = document.querySelector('button')
 btn.onclick = () => {
   game.startGame()
+}
+
+const btn2 = document.querySelector('.test-btn')
+btn2.onclick = () => {
+  game.generateNewPiece()
+  // console.log('test')
 }
