@@ -51,7 +51,7 @@ class Game {
 
       if (e.key === 'ArrowUp') {
         this.removeTiles(this.currentPiece)
-        this.currentPiece.rotate();
+        this.currentPiece.checkRotate(this.gameBoard.grid);
         this.plotTile(this.currentPiece)
       }
 
@@ -143,6 +143,28 @@ class iPiece {
     this.bot[this.rotateIndex] = this.bot[this.rotateIndex] + 2
 
     this.tiles = [this.top, this.center, this.botMiddle, this.bot]
+  }
+
+  checkRotate(grid) {
+    let check = 'false'
+    let xRotateAmount = - 1
+    let xRotateIncrement = + 1
+    if (this.rotateIndex === 0) {
+      xRotateAmount = + 1
+      xRotateIncrement = - 1
+    }
+    this.tiles.forEach(tile => {
+      let [x, y] = tile
+      x += xRotateAmount
+      y = y + (xRotateAmount * - 1)
+      if(check === 'false') {
+        check = grid[y][x].getAttribute(['data-taken'])
+      }
+      xRotateAmount += xRotateIncrement
+    })
+    if (check === 'false') {
+      this.rotate()
+    }
   }
 
   // Change the rotate index between 0 and 1 so the piece can figure out which
@@ -275,6 +297,10 @@ class oPiece {
       this.center[1] += 1
       this.calculatePieces()
     }
+  }
+
+  checkRotate() {
+    this.rotate()
   }
 
   rotate() {
