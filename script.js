@@ -67,14 +67,21 @@ class Game {
 
   playGame() {
       setInterval(() => {
+        
         if (!this.currentPiece.active) {
           this.generateNewPiece()
+          this.removeTiles(this.currentPiece)
+          // this.plotTile(this.currentPiece)
+        } else {
+          this.removeTiles(this.currentPiece)
+          this.currentPiece.checkFall(this.gameBoard.grid)
+          
         }
-        this.removeTiles(this.currentPiece) 
-        // -- Chris thought -- Try to calculate fall placement before it is removed
-        this.currentPiece.checkFall(this.gameBoard.grid)
-        // if (!this.currentPiece.active) this.generateNewPiece()
         this.plotTile(this.currentPiece)
+        // -- Chris thought -- Try to calculate fall placement before it is removed
+        
+        // if (!this.currentPiece.active) this.generateNewPiece()
+        
         this.control += 1
       }, 1000)
   }
