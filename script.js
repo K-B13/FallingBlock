@@ -39,13 +39,13 @@ class Game {
     document.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowRight') {
         this.removeTiles(this.currentPiece)
-        this.currentPiece.right();
+        this.currentPiece.checkRight(this.gameBoard.grid);
         this.plotTile(this.currentPiece)
       }
 
       if (e.key === 'ArrowLeft') {
         this.removeTiles(this.currentPiece)
-        this.currentPiece.left();
+        this.currentPiece.checkLeft(this.gameBoard.grid);
         this.plotTile(this.currentPiece)
       }
 
@@ -67,8 +67,11 @@ class Game {
 
   playGame() {
       setInterval(() => {
+        if (!this.currentPiece.active) {
+          this.generateNewPiece()
+        }
+        this.removeTiles(this.currentPiece) 
         // -- Chris thought -- Try to calculate fall placement before it is removed
-        this.removeTiles(this.currentPiece)
         this.currentPiece.checkFall(this.gameBoard.grid)
         // if (!this.currentPiece.active) this.generateNewPiece()
         this.plotTile(this.currentPiece)
@@ -172,11 +175,39 @@ class iPiece {
     }
   }
 
+  checkLeft(grid) {
+    let check = 'false'
+    this.tiles.forEach(tile => {
+      let [x, y] = tile
+      x -= 1
+      if(check === 'false') {
+        check = grid[y][x].getAttribute(['data-taken'])
+      }
+    })
+    if (check === 'false') {
+      this.left()
+    }
+  }
+
   // Method to move the shape to the left, make sure the shape doesn't go out of the left of the screen. The center is moved by one to the left and then the rest are recalculated.
   left() {
     if (this.top[0] > 0){
       this.center[0] = this.center[0] - 1
       this.calculatePieces()
+    }
+  }
+
+  checkRight(grid) {
+    let check = 'false'
+    this.tiles.forEach(tile => {
+      let [x, y] = tile
+      x += 1
+      if(check === 'false') {
+        check = grid[y][x].getAttribute(['data-taken'])
+      }
+    })
+    if (check === 'false') {
+      this.right()
     }
   }
 
@@ -243,10 +274,38 @@ class oPiece {
     console.log("Nothing happens ye fool")
   }
 
+  checkLeft(grid) {
+    let check = 'false'
+    this.tiles.forEach(tile => {
+      let [x, y] = tile
+      x -= 1
+      if(check === 'false') {
+        check = grid[y][x].getAttribute(['data-taken'])
+      }
+    })
+    if (check === 'false') {
+      this.left()
+    }
+  }
+
   left() {
     if (this.center[0] > 0) {
       this.center[0] -= 1
       this.calculatePieces()
+    }
+  }
+
+  checkRight(grid) {
+    let check = 'false'
+    this.tiles.forEach(tile => {
+      let [x, y] = tile
+      x += 1
+      if(check === 'false') {
+        check = grid[y][x].getAttribute(['data-taken'])
+      }
+    })
+    if (check === 'false') {
+      this.right()
     }
   }
 
