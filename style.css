@@ -29,6 +29,11 @@ h1 {
   border: 1px solid black;
 }
 
+.purple {
+  background-color: purple;
+  border: 1px solid black;
+}
+
 .border {
   background-color: black;
 }

@@ -3,7 +3,7 @@ class Game {
     this.gameBoard = new Board
     this.gameBoard.createBoard()
 
-    this.possiblePieces = [iPiece, oPiece]
+    this.possiblePieces = [tPiece, tPiece]
     this.control = 0
     this.currentPiece = null
 
@@ -198,10 +198,10 @@ class iPiece {
 
   // Method to lower the shape, make sure the shape doesn't go out of the bottom of the screen. The center is decreased by one and then the rest are recalculated.
   fall() {
-    if (this.bot[1] < 10) {
+    // if (this.bot[1] < 10) {
       this.center[1] += 1
       this.calculatePieces()
-    }
+    // }
   }
 
   checkLeft(grid) {
@@ -254,6 +254,7 @@ class oPiece {
     this.color = 'yellow'
     this.active = true
     this.center = [5, 1]
+
     this.calculatePieces()
   }
 
@@ -348,6 +349,97 @@ class oPiece {
       this.calculatePieces()
     }
   }
+}
+
+class tPiece {
+  constructor() {
+    this.color = 'purple'
+    this.active = true
+    this.center = [5, 1]
+    this.rotateIndex = 0
+
+
+    this.calculatePieces()
+  }
+
+  calculatePieces() {
+    this.leftCenter = [ ...this.center ]
+    this.botCenter = [ ...this.center ]
+    this.rightCenter = [ ...this.center ]
+    switch (this.rotateIndex) {
+      case (0):
+        this.calculateLeft(this.leftCenter);
+        this.calculateBot(this.botCenter);
+        this.calculateRight(this.rightCenter);
+        break
+      case(1):
+        this.calculateBot(this.leftCenter);
+        this.calculateRight(this.botCenter);
+        this.calculateTop(this.rightCenter);
+        break
+      case(2):
+        this.calculateRight(this.leftCenter);
+        this.calculateTop(this.botCenter);
+        this.calculateLeft(this.rightCenter);
+      break
+      case(3):
+        this.calculateTop(this.leftCenter);
+        this.calculateLeft(this.botCenter);
+        this.calculateBot(this.rightCenter);
+      break
+    }
+
+    this.tiles = [this.leftCenter, this.center, this.botCenter, this.rightCenter]
+  }
+
+  calculateLeft(piece) {
+    piece[0] -= 1
+  }
+
+  calculateBot(piece) {
+    piece[1] += 1
+  }
+
+  calculateRight(piece) { 
+    piece[0] += 1
+  }
+
+  calculateTop(piece) {
+    piece[1] -= 1
+  }
+
+  rotate() {
+    this.rotateIndex = (this.rotateIndex + 1) % 4
+    this.calculatePieces()
+  }
+
+  checkFall() {
+    this.fall()
+  }
+
+  fall() {
+    this.center[1] += 1
+    this.calculatePieces()
+  }
+
+  checkLeft() {
+    this.left()
+  }
+
+  left() {
+    this.center[0] -= 1
+    this.calculatePieces()
+  }
+
+  checkRight() {
+    this.right()
+  }
+
+  right() {
+    this.center[0] += 1
+    this.calculatePieces()
+  }
+
 }
 
 const game = new Game
