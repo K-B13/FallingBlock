@@ -1,12 +1,12 @@
 import { Board } from './board.js'
-import { iPiece, oPiece, tPiece, lPiece, jPiece, zPiece } from './shapes/allshapes.js'
+import { iPiece, oPiece, tPiece, lPiece, jPiece, zPiece, sPiece } from './shapes/allshapes.js'
 
 export class Game {
   constructor() {
     this.gameBoard = new Board
     this.gameBoard.createBoard()
 
-    this.possiblePieces = [iPiece, oPiece, tPiece, lPiece, jPiece, zPiece]
+    this.possiblePieces = [iPiece, oPiece, tPiece, lPiece, jPiece, zPiece, sPiece]
     this.control = 0
     this.currentPiece = null
 

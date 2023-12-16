@@ -49,6 +49,11 @@ h1 {
   border: 1px solid black;
 }
 
+.green {
+  background-color: green;
+  border: 1px solid black;
+}
+
 .border {
   background-color: black;
 }
