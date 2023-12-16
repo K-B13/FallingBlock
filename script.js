@@ -3,7 +3,7 @@ class Game {
     this.gameBoard = new Board
     this.gameBoard.createBoard()
 
-    this.possiblePieces = [tPiece, tPiece]
+    this.possiblePieces = [tPiece, oPiece, iPiece]
     this.control = 0
     this.currentPiece = null
 
@@ -408,13 +408,49 @@ class tPiece {
     piece[1] -= 1
   }
 
+  checkRotate(grid) {
+    let check = 'false'
+    const rotateDifferences = [[1, 1], [1, -1], [-1, -1], [-1, 1]]
+    let rotateIndexCheck = this.rotateIndex
+    this.tiles.forEach((tile, index) => {
+      if (index !== 1) {
+        let [x, y] = tile
+        x += rotateDifferences[rotateIndexCheck][0]
+        y += rotateDifferences[rotateIndexCheck][1]
+        if(check === 'false') {
+          check = grid[y][x].getAttribute(['data-taken'])
+        }
+        rotateIndexCheck = (rotateIndexCheck + 1) % 4 
+      }
+    })
+    if (check === 'false') {
+      this.rotate()
+    }
+  }
+
   rotate() {
     this.rotateIndex = (this.rotateIndex + 1) % 4
     this.calculatePieces()
   }
 
-  checkFall() {
-    this.fall()
+  checkFall(grid) {
+    let check = 'false'
+    this.tiles.forEach(tile => {
+      let [x, y] = tile
+      y += 1
+      if(check === 'false') {
+        check = grid[y][x].getAttribute(['data-taken'])
+      }
+    })
+    if (check === 'true') {
+      this.tiles.forEach(tile => {
+        const [x, y] = tile
+        grid[y][x].dataset.taken = 'true'
+      })
+      this.active = false
+    } else {
+      this.fall()
+    }
   }
 
   fall() {
@@ -422,8 +458,18 @@ class tPiece {
     this.calculatePieces()
   }
 
-  checkLeft() {
-    this.left()
+  checkLeft(grid) {
+    let check = 'false'
+    this.tiles.forEach(tile => {
+      let [x, y] = tile
+      x -= 1
+      if(check === 'false') {
+        check = grid[y][x].getAttribute(['data-taken'])
+      }
+    })
+    if (check === 'false') {
+      this.left()
+    }
   }
 
   left() {
@@ -431,8 +477,18 @@ class tPiece {
     this.calculatePieces()
   }
 
-  checkRight() {
-    this.right()
+  checkRight(grid) {
+    let check = 'false'
+    this.tiles.forEach(tile => {
+      let [x, y] = tile
+      x += 1
+      if(check === 'false') {
+        check = grid[y][x].getAttribute(['data-taken'])
+      }
+    })
+    if (check === 'false') {
+      this.right()
+    }
   }
 
   right() {
