@@ -1,8 +1,5 @@
 import { Game } from './game.js'
 
-
-
-
 const game = new Game
 
 const btn = document.querySelector('button')

@@ -2,7 +2,7 @@ export class oPiece {
   constructor() {
     this.color = 'yellow'
     this.active = true
-    this.center = [5, 1]
+    this.center = [7, 1]
 
     this.calculatePieces()
   }
@@ -43,10 +43,8 @@ export class oPiece {
   }
 
   fall() {
-    if (this.bot[1] < 10) {
-      this.center[1] += 1
-      this.calculatePieces()
-    }
+    this.center[1] += 1
+    this.calculatePieces()
   }
 
   checkRotate() {
@@ -72,7 +70,7 @@ export class oPiece {
   }
 
   left() {
-    if (this.center[0] > 0) {
+    if (this.active) {
       this.center[0] -= 1
       this.calculatePieces()
     }
@@ -93,7 +91,7 @@ export class oPiece {
   }
 
   right() {
-    if (this.topRight[0] < 10) {
+    if (this.active) {
       this.center[0] += 1
       this.calculatePieces()
     }

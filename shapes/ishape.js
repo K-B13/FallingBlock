@@ -3,7 +3,7 @@ export class iPiece {
     this.color = 'lightblue'
     this.rotateIndex = 1
     this.active = true
-    this.center = [5, 2]
+    this.center = [7, 2]
 
     this.calculatePieces()
   }
@@ -45,9 +45,10 @@ export class iPiece {
   // Change the rotate index between 0 and 1 so the piece can figure out which
   // orientation it is
   rotate() {
-  // if (this.bot[0] > 9 || this.top[0] < 1)
-    this.rotateIndex = (this.rotateIndex + 1) % 2
-    this.calculatePieces()
+    if (this.active) {
+      this.rotateIndex = (this.rotateIndex + 1) % 2
+      this.calculatePieces()
+    }
   }
 
   // Method to check if the shape can move down then the method fall will be called if not then it will return false.
@@ -95,7 +96,7 @@ export class iPiece {
 
   // Method to move the shape to the left, make sure the shape doesn't go out of the left of the screen. The center is moved by one to the left and then the rest are recalculated.
   left() {
-    if (this.top[0] > 0){
+    if (this.active) {
       this.center[0] = this.center[0] - 1
       this.calculatePieces()
     }
@@ -117,7 +118,7 @@ export class iPiece {
 
   // Method to move the shape to the right, make sure the shape doesn't go out of the right of the screen. The center is moved by one to the right and then the rest are recalculated.
   right() {
-    if (this.bot[0] < 10) {
+    if (this.active) {
       this.center[0] = this.center[0] + 1
       this.calculatePieces()
     }

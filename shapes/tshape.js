@@ -2,7 +2,7 @@ export class tPiece {
   constructor() {
     this.color = 'purple'
     this.active = true
-    this.center = [5, 1]
+    this.center = [7, 1]
     this.rotateIndex = 0
 
 
@@ -76,8 +76,10 @@ export class tPiece {
   }
 
   rotate() {
-    this.rotateIndex = (this.rotateIndex + 1) % 4
-    this.calculatePieces()
+    if (this.active) {
+      this.rotateIndex = (this.rotateIndex + 1) % 4
+      this.calculatePieces()
+    }
   }
 
   checkFall(grid) {
@@ -90,11 +92,11 @@ export class tPiece {
       }
     })
     if (check === 'true') {
+      this.active = false
       this.tiles.forEach(tile => {
         const [x, y] = tile
         grid[y][x].dataset.taken = 'true'
       })
-      this.active = false
     } else {
       this.fall()
     }
@@ -120,8 +122,10 @@ export class tPiece {
   }
 
   left() {
-    this.center[0] -= 1
-    this.calculatePieces()
+    if (this.active) {
+      this.center[0] -= 1
+      this.calculatePieces()
+    }
   }
 
   checkRight(grid) {
@@ -139,8 +143,10 @@ export class tPiece {
   }
 
   right() {
-    this.center[0] += 1
-    this.calculatePieces()
+    if (this.active) {
+      this.center[0] += 1
+      this.calculatePieces()
+    }
   }
 
 }

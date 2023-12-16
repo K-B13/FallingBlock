@@ -1,8 +1,8 @@
 export class Board {
   constructor() {
     this.grid = [];
-    this.width = 11;
-    this.height = 12;
+    this.width = 15;
+    this.height = 18;
     this.board = document.querySelector('.board-container');
   }
   
