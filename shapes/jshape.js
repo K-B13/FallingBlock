@@ -5,7 +5,7 @@ export class jPiece {
     this.center = [7, 2]
     this.rotateIndex = 0
 
-    this.rotations = [this.calculateOrignalRotation, this.calculate90Rotation, this.calculate180Rotation, this.calculate270Rotation]
+    this.rotations = [this.calculateOriginalRotation, this.calculate90Rotation, this.calculate180Rotation, this.calculate270Rotation]
 
     this.calculatePieces()
   }
@@ -16,7 +16,7 @@ export class jPiece {
     this.botLeft = [ ...this.center ]
     switch (this.rotateIndex) {
       case (0):
-        this.calculateOrignalRotation(this.top, this.bot, this.botLeft)
+        this.calculateOriginalRotation(this.top, this.bot, this.botLeft)
         break
       case (1):
         this.calculate90Rotation(this.top, this.bot, this.botLeft)
@@ -31,7 +31,7 @@ export class jPiece {
     this.tiles = [this.top, this.center, this.bot, this.botLeft]
   }
 
-  calculateOrignalRotation(firstTile, secondTile, thirdTile) {
+  calculateOriginalRotation(firstTile, secondTile, thirdTile) {
     firstTile[1] -= 1
     secondTile[1] += 1
     thirdTile[0] -= 1
