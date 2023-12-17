@@ -15,7 +15,7 @@ h1 {
 
 .row {
   display: grid;
-  grid-template-columns: repeat(11, 1fr);
+  grid-template-columns: repeat(15, 1fr);
   background-color: blue;
 }
 
@@ -26,6 +26,31 @@ h1 {
 
 .yellow {
   background-color: yellow;
+  border: 1px solid black;
+}
+
+.purple {
+  background-color: purple;
+  border: 1px solid black;
+}
+
+.orange {
+  background-color: orange;
+  border: 1px solid black;
+}
+
+.dark-blue {
+  background-color: darkblue;
+  border: 1px solid black;
+}
+
+.red {
+  background-color: red;
+  border: 1px solid black;
+}
+
+.green {
+  background-color: green;
   border: 1px solid black;
 }
 
