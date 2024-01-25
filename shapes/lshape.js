@@ -1,8 +1,8 @@
 export class lPiece {
-  constructor() {
+  constructor(start) {
     this.color = 'orange'
     this.active = true
-    this.center = [7, 2]
+    this.center = [start, 2]
     this.rotateIndex = 0
 
     this.rotations = [this.calculateOriginalRotation, this.calculate90Rotation, this.calculate180Rotation, this.calculate270Rotation]

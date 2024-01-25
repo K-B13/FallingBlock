@@ -1,8 +1,8 @@
 export class oPiece {
-  constructor() {
+  constructor(start) {
     this.color = 'yellow'
     this.active = true
-    this.center = [7, 1]
+    this.center = [start, 1]
 
     this.calculatePieces()
   }

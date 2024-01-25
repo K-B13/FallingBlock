@@ -1,8 +1,8 @@
 export class jPiece {
-  constructor() {
+  constructor(start) {
     this.color = 'dark-blue'
     this.active = true
-    this.center = [7, 2]
+    this.center = [start, 2]
     this.rotateIndex = 0
 
     this.rotations = [this.calculateOriginalRotation, this.calculate90Rotation, this.calculate180Rotation, this.calculate270Rotation]

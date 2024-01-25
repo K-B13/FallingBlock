@@ -1,8 +1,8 @@
 export class zPiece {
-  constructor() {
+  constructor(start) {
     this.color = 'red'
     this.active = true
-    this.center = [7, 1]
+    this.center = [start, 1]
     this.rotateIndex = 0
 
     this.rotations = [this.calculateOriginalRotation, this.calculate90Rotation]
@@ -22,6 +22,7 @@ export class zPiece {
         this.calculate90Rotation(this.leftTop, this.bot, this.botRight)
         break
     }
+
     this.tiles = [this.leftTop, this.center, this.bot, this.botRight]
   }
 
@@ -47,7 +48,7 @@ export class zPiece {
     let testBot = [ ...this.center ]
     let testBotRight = [ ...this.center ]
     this.rotations[rotationAmount](testLeft, testBot, testBotRight)
-    const fakeTiles = [testLeft, testBot, testBotRight ]
+    const fakeTiles = [testLeft, testBot, testBotRight]
     fakeTiles.forEach((tile) => {
       let [x, y] = tile
       if(check === 'false') {

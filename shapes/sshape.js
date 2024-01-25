@@ -1,8 +1,8 @@
 export class sPiece {
-  constructor() {
+  constructor(start) {
     this.color = 'green'
     this.active = true
-    this.center = [7, 1]
+    this.center = [start, 1]
     this.rotateIndex = 0
 
     this.rotations = [this.calculateOriginalRotation, this.calculate90Rotation]
