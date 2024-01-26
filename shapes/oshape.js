@@ -3,6 +3,7 @@ export class oPiece {
     this.color = 'yellow'
     this.active = true
     this.center = [start, 1]
+    this.name = 'oPiece'
 
     this.calculatePieces()
   }

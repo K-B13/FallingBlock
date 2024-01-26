@@ -4,6 +4,7 @@ export class zPiece {
     this.active = true
     this.center = [start, 1]
     this.rotateIndex = 0
+    this.name = 'zPiece'
 
     this.rotations = [this.calculateOriginalRotation, this.calculate90Rotation]
 

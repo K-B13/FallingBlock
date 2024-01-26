@@ -9,6 +9,8 @@ export class Board {
     // Grabs the board dom element so I can create elements within the board container class.
     this.board = document.querySelector('.board-container');
 
+    this.score = 0;
+
     this.fullRows = []
     this.row = 0
   }
@@ -71,6 +73,7 @@ export class Board {
             this.grid[i][j].dataset.taken = this.grid[i-1][j].dataset.taken
           }
         }
+        this.score += 1000;
       })
     }
   }
