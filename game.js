@@ -19,7 +19,7 @@ export class Game {
     this.ongoingGame = true;
     
     this.gamePieces = [];
-    this.storedPiece = '';
+    this.storedPiece = -1;
     this.generateStartingPieces();
   }
 
@@ -62,7 +62,6 @@ export class Game {
       this.ongoingGame = false
       clearInterval(this.gamePlay)
     }
-    console.log(this.gamePieces)
   }
 
   // This method loops through the current pieces tile array which holds the coordinates of each point in the shape and then maps it onto the grid giving those grid positions the class name of the piece color.
@@ -112,11 +111,18 @@ export class Game {
       }
 
       if (e.key === 'm') {
-        if (this.storedPiece) {
-          const fromStorage = this.gamePieces[0].name
+        this.removeTiles(this.gamePieces[0])
+        if (this.storedPiece !== -1) {
+          const toStorage = this.gamePieces[0].number
+          const fromStorage = this.possiblePieces[this.storedPiece]
+          this.storedPiece = toStorage
+          this.gamePieces[0] = new fromStorage(this.startLocation)
+        } else {
+          this.storedPiece = this.gamePieces[0].number
+          this.gamePieces.shift()
+          this.gamePieces.push(this.selectPiece())
         }
-        this.storedPiece = this.gamePieces[0].name
-        
+        this.plotTile(this.gamePieces[0])
       }
       
     })

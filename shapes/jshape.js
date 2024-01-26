@@ -4,7 +4,7 @@ export class jPiece {
     this.active = true
     this.center = [start, 2]
     this.rotateIndex = 0
-    this.name = 'jShape'
+    this.number = 4
 
     this.rotations = [this.calculateOriginalRotation, this.calculate90Rotation, this.calculate180Rotation, this.calculate270Rotation]
 
