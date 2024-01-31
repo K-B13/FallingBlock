@@ -9,8 +9,6 @@ export class tPiece {
     // This will be used to understand which orientation the piece is currently.
     this.rotateIndex = 0
 
-    this.number = 2
-
     // Used to calculate all points of the shape when it is first created giving it shape.
     this.calculatePieces()
   }
@@ -165,4 +163,9 @@ export class tPiece {
     }
   }
 
+  reset(start) {
+    this.center = [start, 1]
+    this.rotateIndex = 0
+    this.calculatePieces()
+  }
 }

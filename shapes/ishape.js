@@ -4,7 +4,6 @@ export class iPiece {
     this.rotateIndex = 1
     this.active = true
     this.center = [start, 2]
-    this.number = 0
 
     this.calculatePieces()
   }
@@ -133,5 +132,11 @@ export class iPiece {
       this.center[0] = this.center[0] + 1
       this.calculatePieces()
     }
+  }
+
+  reset(start) {
+    this.center = [start, 2]
+    this.rotateIndex = 1
+    this.calculatePieces()
   }
 }

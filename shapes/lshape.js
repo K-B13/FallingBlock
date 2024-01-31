@@ -4,7 +4,6 @@ export class lPiece {
     this.active = true
     this.center = [start, 2]
     this.rotateIndex = 0
-    this.number = 3
 
     this.rotations = [this.calculateOriginalRotation, this.calculate90Rotation, this.calculate180Rotation, this.calculate270Rotation]
 
@@ -152,6 +151,12 @@ export class lPiece {
       this.center[0] += 1
       this.calculatePieces()
     }
+  }
+
+  reset(start) {
+    this.center = [start, 2]
+    this.rotateIndex = 0
+    this.calculatePieces()
   }
 }
 

@@ -4,7 +4,6 @@ export class sPiece {
     this.active = true
     this.center = [start, 1]
     this.rotateIndex = 0
-    this.number = 6
 
     this.rotations = [this.calculateOriginalRotation, this.calculate90Rotation]
 
@@ -134,6 +133,12 @@ export class sPiece {
       this.center[0] += 1
       this.calculatePieces()
     }
+  }
+
+  reset(start) {
+    this.center = [start, 1]
+    this.rotateIndex = 0
+    this.calculatePieces()
   }
 }
 

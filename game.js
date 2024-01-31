@@ -21,6 +21,14 @@ export class Game {
     this.gamePieces = [];
     this.storedPiece = -1;
     this.generateStartingPieces();
+    this.createExtraDisplays();
+  }
+
+  createExtraDisplays() {
+    this.gameBoard.createSideRows('first-future-piece')
+    this.gameBoard.createSideRows('second-future-piece')
+    this.gameBoard.createSideRows('third-future-piece')
+    this.gameBoard.createSideRows('reserve-piece')
   }
 
   // This method generates a random number up to the number of pieces in the array holding the piece classes. then the selected number is used to grab one of the piece classes from the array and create a piece setting the current piece to the new piece created.
@@ -35,6 +43,7 @@ export class Game {
       const piece = this.selectPiece()
       this.gamePieces.push(piece)
     }
+    console.log(this.gamePieces)
     this.checkStartLocation()
   }
 
@@ -77,6 +86,7 @@ export class Game {
     piece.tiles.forEach((tile) => {
       const [x, y] = tile;
       this.gameBoard.grid[y][x].classList.remove(piece.color)
+      this.gameBoard.grid[y][x].dataset.taken = 'false'
     })
   }
 
@@ -112,13 +122,14 @@ export class Game {
 
       if (e.key === 'm') {
         this.removeTiles(this.gamePieces[0])
+        this.gamePieces[0].reset(this.startLocation)
         if (this.storedPiece !== -1) {
-          const toStorage = this.gamePieces[0].number
-          const fromStorage = this.possiblePieces[this.storedPiece]
+          const toStorage = this.gamePieces[0]
+          const fromStorage = this.storedPiece
           this.storedPiece = toStorage
-          this.gamePieces[0] = new fromStorage(this.startLocation)
+          this.gamePieces[0] = fromStorage
         } else {
-          this.storedPiece = this.gamePieces[0].number
+          this.storedPiece = this.gamePieces[0]
           this.gamePieces.shift()
           this.gamePieces.push(this.selectPiece())
         }

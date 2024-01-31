@@ -3,7 +3,6 @@ export class oPiece {
     this.color = 'yellow'
     this.active = true
     this.center = [start, 1]
-    this.number = 1
 
     this.calculatePieces()
   }
@@ -96,5 +95,10 @@ export class oPiece {
       this.center[0] += 1
       this.calculatePieces()
     }
+  }
+
+  reset(start) {
+    this.center = [start, 1]
+    this.calculatePieces()
   }
 }

@@ -3,57 +3,113 @@ h1 {
   min-height: 1.1rem;
 }
 
+body {
+  background-color: #F3F8FF;
+}
+
+main {
+  display: flex;
+}
+
+aside {
+  min-width: 15rem;
+}
+
 .board-container {
   display: grid;
   grid-template-columns: 1fr;
-  background-color: red;
+  background-color: #49108B;
   min-height: 80vh;
   padding: 10px;
   width: 35vw;
   margin: 0 auto;
+  /* grid-gap: 0.1rem; */
 }
 
 .row {
   display: grid;
   grid-template-columns: repeat(13, 1fr);
-  background-color: blue;
+  /* grid-gap: 0.1rem; */
+}
+
+.tile {
+  background-color: #E26EE5;
+}
+
+.reserve-piece {
+  width: 12.5rem;
+  min-height: 25vh;
+  display: grid;
+  margin: 0 auto;
+  grid-gap: 0.1rem;
+  background-color: red;
+}
+
+.first-future-piece {
+  width: 12.5rem;
+  min-height: 25vh;
+  display: grid;
+  margin: 1rem 0;
+  grid-gap: 0.1rem;
+  background-color: red;
+}
+
+.second-future-piece {
+  width: 12.5rem;
+  min-height: 25vh;
+  display: grid;
+  margin: 1rem 0;
+  grid-gap: 0.1rem;
+  background-color: red;
+}
+
+.third-future-piece {
+  width: 12.5rem;
+  min-height: 25vh;
+  display: grid;
+  margin: 1rem 0;
+  grid-gap: 0.1rem;
+  background-color: red;
+}
+
+.side-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 0.1rem;
+}
+
+.side-row div {
+  background-color: black;
 }
 
 .lightblue {
   background-color: lightblue;
-  border: 1px solid black;
 }
 
 .yellow {
   background-color: yellow;
-  border: 1px solid black;
 }
 
 .purple {
   background-color: purple;
-  border: 1px solid black;
 }
 
 .orange {
   background-color: orange;
-  border: 1px solid black;
 }
 
 .dark-blue {
   background-color: darkblue;
-  border: 1px solid black;
 }
 
 .red {
   background-color: red;
-  border: 1px solid black;
 }
 
 .green {
   background-color: green;
-  border: 1px solid black;
 }
 
 .border {
-  background-color: black;
+  background-color: #7E30E1;
 }

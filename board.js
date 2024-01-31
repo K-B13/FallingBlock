@@ -12,7 +12,7 @@ export class Board {
     this.score = 0;
 
     this.fullRows = []
-    this.row = 0
+
   }
   
   createBoard(){
@@ -36,15 +36,27 @@ export class Board {
           tile.classList.add('border');
         } else tile.dataset.taken = 'false';
         // Adds the class list with name of row followed by the row number
-        tile.classList.add(`row${this.row}`);
+        tile.classList.add(`row${i}`, 'tile');
         // The new column is appended into the row.
         row.appendChild(tile);
       }
-      this.row += 1
-
       // Creates an array of arrays each item in the arrays is linked ot the corresponding space on the grid.
       const entireRow = Array.from(document.querySelectorAll(`.row${i}`));
       this.grid.push(entireRow)
+    }
+  }
+
+  createSideRows(className) {
+
+    const sideBoard = document.querySelector(`.${className}`)
+    for (let i = 0; i < 4; i++) {
+      const row = document.createElement('div');
+      row.classList.add('side-row');
+      sideBoard.appendChild(row);
+      for (let j = 0; j < 4; j++) {
+        const tile = document.createElement('div');
+        row.appendChild(tile);
+      }
     }
   }
 
