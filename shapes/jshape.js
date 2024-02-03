@@ -1,8 +1,8 @@
-export class jPiece {
+import { Shape } from "./shape.js"
+export class jPiece extends Shape {
   constructor(start) {
+    super(start)
     this.color = 'dark-blue'
-    this.active = true
-    this.startX = start
     this.center = [this.startX, 2]
     this.rotateIndex = 0
 
@@ -85,25 +85,6 @@ export class jPiece {
       this.calculatePieces()
     }
   }
-  checkFall(grid) {
-    let check = 'false'
-    this.tiles.forEach(tile => {
-      let [x, y] = tile
-      y += 1
-      if(check === 'false') {
-        check = grid[y][x].getAttribute(['data-taken'])
-      }
-    })
-    if (check === 'true') {
-      this.active = false
-      this.tiles.forEach(tile => {
-        const [x, y] = tile
-        grid[y][x].dataset.taken = 'true'
-      })
-    } else {
-      this.fall()
-    }
-  }
 
   fall() {
     if (this.active) {
@@ -112,38 +93,10 @@ export class jPiece {
     }
   }
 
-  checkLeft(grid) {
-    let check = 'false'
-    this.tiles.forEach(tile => {
-      let [x, y] = tile
-      x -= 1
-      if(check === 'false') {
-        check = grid[y][x].getAttribute(['data-taken'])
-      }
-    })
-    if (check === 'false') {
-      this.left()
-    }
-  }
-
   left() {
     if (this.active) {
       this.center[0] -= 1
       this.calculatePieces()
-    }
-  }
-
-  checkRight(grid) {
-    let check = 'false'
-    this.tiles.forEach(tile => {
-      let [x, y] = tile
-      x += 1
-      if(check === 'false') {
-        check = grid[y][x].getAttribute(['data-taken'])
-      }
-    })
-    if (check === 'false') {
-      this.right()
     }
   }
 

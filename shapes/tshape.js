@@ -1,11 +1,10 @@
-export class tPiece {
+import { Shape } from "./shape.js"
+export class tPiece extends Shape {
   constructor(start) {
+    super(start)
     // Color of the piece. Used for the class name that will design the tPiece.
     this.color = 'purple'
-    // This is used to know whether the player should be able to move the piece or not.
-    this.active = true
     // The center coordinate for the piece. The start parameter will be the center column and the 1 means it will start 1 space off of the top.
-    this.startX = start
     this.center = [this.startX, 1]
     // This will be used to understand which orientation the piece is currently.
     this.rotateIndex = 0
@@ -97,63 +96,15 @@ export class tPiece {
     }
   }
 
-  checkFall(grid) {
-    let check = 'false'
-    this.tiles.forEach(tile => {
-      let [x, y] = tile
-      y += 1
-      if(check === 'false') {
-        check = grid[y][x].getAttribute(['data-taken'])
-      }
-    })
-    if (check === 'true') {
-      this.active = false
-      this.tiles.forEach(tile => {
-        const [x, y] = tile
-        grid[y][x].dataset.taken = 'true'
-      })
-    } else {
-      this.fall()
-    }
-  }
-
   fall() {
     this.center[1] += 1
     this.calculatePieces()
-  }
-
-  checkLeft(grid) {
-    let check = 'false'
-    this.tiles.forEach(tile => {
-      let [x, y] = tile
-      x -= 1
-      if(check === 'false') {
-        check = grid[y][x].getAttribute(['data-taken'])
-      }
-    })
-    if (check === 'false') {
-      this.left()
-    }
   }
 
   left() {
     if (this.active) {
       this.center[0] -= 1
       this.calculatePieces()
-    }
-  }
-
-  checkRight(grid) {
-    let check = 'false'
-    this.tiles.forEach(tile => {
-      let [x, y] = tile
-      x += 1
-      if(check === 'false') {
-        check = grid[y][x].getAttribute(['data-taken'])
-      }
-    })
-    if (check === 'false') {
-      this.right()
     }
   }
 

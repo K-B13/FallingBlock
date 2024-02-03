@@ -1,9 +1,9 @@
-export class iPiece {
+import { Shape } from "./shape.js"
+export class iPiece extends Shape {
   constructor(start) {
+    super(start)
     this.color = 'lightblue'
     this.rotateIndex = 1
-    this.active = true
-    this.startX = start
     this.center = [this.startX, 2]
     this.startX = start
 
@@ -63,27 +63,6 @@ export class iPiece {
     }
   }
 
-  // Method to check if the shape can move down then the method fall will be called if not then it will return false.
-  checkFall(grid) {
-    let check = 'false'
-    this.tiles.forEach(tile => {
-      let [x, y] = tile
-      y += 1
-      if(check === 'false') {
-        check = grid[y][x].getAttribute(['data-taken'])
-      }
-    })
-    if (check === 'true') {
-      this.tiles.forEach(tile => {
-        const [x, y] = tile
-        grid[y][x].dataset.taken = 'true'
-      })
-      this.active = false
-    } else {
-      this.fall()
-    }
-  }
-
   // Method to lower the shape, make sure the shape doesn't go out of the bottom of the screen. The center is decreased by one and then the rest are recalculated.
   fall() {
     // if (this.bot[1] < 10) {
@@ -92,39 +71,11 @@ export class iPiece {
     // }
   }
 
-  checkLeft(grid) {
-    let check = 'false'
-    this.tiles.forEach(tile => {
-      let [x, y] = tile
-      x -= 1
-      if(check === 'false') {
-        check = grid[y][x].getAttribute(['data-taken'])
-      }
-    })
-    if (check === 'false') {
-      this.left()
-    }
-  }
-
   // Method to move the shape to the left, make sure the shape doesn't go out of the left of the screen. The center is moved by one to the left and then the rest are recalculated.
   left() {
     if (this.active) {
       this.center[0] = this.center[0] - 1
       this.calculatePieces()
-    }
-  }
-
-  checkRight(grid) {
-    let check = 'false'
-    this.tiles.forEach(tile => {
-      let [x, y] = tile
-      x += 1
-      if(check === 'false') {
-        check = grid[y][x].getAttribute(['data-taken'])
-      }
-    })
-    if (check === 'false') {
-      this.right()
     }
   }
 

@@ -9,7 +9,7 @@ export class Game {
     this.gameBoard.createBoard()
 
     // Array of all the possible pieces. Will be randomly selected and then used to create the pieces.
-    this.possiblePieces = [iPiece, oPiece, tPiece, lPiece, jPiece, zPiece, sPiece]
+    this.possiblePieces = [sPiece, iPiece, jPiece, lPiece, tPiece, oPiece, zPiece]
     // This is used to calculate where the new piece will start. It calculates the middle of the width and rounds up.
     this.startLocation = Math.floor(this.gameBoard.width / 2);
     // This calls the method to generate one piece when the game is started.
@@ -146,7 +146,7 @@ export class Game {
         this.plotTile(this.gamePieces[0])
       }
 
-      if (e.key === 'm') {
+      if (e.key === 'm' && this.gamePieces[0].active) {
         this.removeTiles(this.gamePieces[0])
         if (this.storedPiece !== -1) {
           const toStorage = this.gamePieces[0]

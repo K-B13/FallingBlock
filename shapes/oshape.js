@@ -1,8 +1,8 @@
-export class oPiece {
+import { Shape } from "./shape.js"
+export class oPiece extends Shape {
   constructor(start) {
+    super(start)
     this.color = 'yellow'
-    this.active = true
-    this.startX = start
     this.center = [this.startX, 1]
 
     this.calculatePieces()
@@ -23,26 +23,6 @@ export class oPiece {
     this.tiles = [this.bot, this.botRight, this.center, this.topRight]
   }
 
-  checkFall(grid) {
-    let check = 'false'
-    this.tiles.forEach(tile => {
-      let [x, y] = tile
-      y += 1
-      if(check === 'false') {
-        check = grid[y][x].getAttribute(['data-taken'])
-      }
-    })
-    if (check === 'true') {
-      this.tiles.forEach(tile => {
-        const [x, y] = tile
-        grid[y][x].dataset.taken = 'true'
-      })
-      this.active = false
-    } else {
-      this.fall()
-    }
-  }
-
   fall() {
     this.center[1] += 1
     this.calculatePieces()
@@ -56,38 +36,10 @@ export class oPiece {
     console.log("Nothing happens ye fool")
   }
 
-  checkLeft(grid) {
-    let check = 'false'
-    this.tiles.forEach(tile => {
-      let [x, y] = tile
-      x -= 1
-      if(check === 'false') {
-        check = grid[y][x].getAttribute(['data-taken'])
-      }
-    })
-    if (check === 'false') {
-      this.left()
-    }
-  }
-
   left() {
     if (this.active) {
       this.center[0] -= 1
       this.calculatePieces()
-    }
-  }
-
-  checkRight(grid) {
-    let check = 'false'
-    this.tiles.forEach(tile => {
-      let [x, y] = tile
-      x += 1
-      if(check === 'false') {
-        check = grid[y][x].getAttribute(['data-taken'])
-      }
-    })
-    if (check === 'false') {
-      this.right()
     }
   }
 
