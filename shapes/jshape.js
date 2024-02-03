@@ -61,20 +61,20 @@ export class jPiece extends Shape {
   }
 
   checkRotate(grid) {
-    let check = 'false'
+    let canNotRotate = 'false'
     const rotationAmount = (this.rotateIndex + 1) % 4
-    let testTop = [ ...this.center ]
-    let testBot = [ ...this.center ]
-    let testBotLeft = [ ...this.center ]
-    this.rotations[rotationAmount](testTop, testBot, testBotLeft)
-    const fakeTiles = [testTop, testBot, testBotLeft ]
+    let fakeTop = [ ...this.center ]
+    let fakeBot = [ ...this.center ]
+    let fakeBotLeft = [ ...this.center ]
+    this.rotations[rotationAmount](fakeTop, fakeBot, fakeBotLeft)
+    const fakeTiles = [fakeTop, fakeBot, fakeBotLeft]
     fakeTiles.forEach((tile) => {
       let [x, y] = tile
-      if(check === 'false') {
-        check = grid[y][x].getAttribute(['data-taken'])
+      if(canNotRotate === 'false') {
+        canNotRotate = grid[y][x].getAttribute(['data-taken'])
       }
     })
-    if (check === 'false') {
+    if (canNotRotate === 'false') {
       this.rotate()
     }
   }
@@ -85,7 +85,7 @@ export class jPiece extends Shape {
       this.calculatePieces()
     }
   }
-  
+
   undoPreviewView() {
     this.center = [this.startX, 2]
     this.calculatePieces()

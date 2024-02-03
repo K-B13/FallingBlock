@@ -68,7 +68,7 @@ export class tPiece extends Shape {
 
   checkRotate(grid) {
     // Sets a variable false this will be used to identify whether each new coordinate is free to use.
-    let check = 'false'
+    let canNotRotate = 'false'
     // An array with all the possible coordinates of the points which are not the center point.
     const rotateDifferences = [[1, 1], [1, -1], [-1, -1], [-1, 1]]
     // Used an alternative variable instead of the actual rotateIndex 
@@ -78,13 +78,13 @@ export class tPiece extends Shape {
         let [x, y] = tile
         x += rotateDifferences[rotateIndexCheck][0]
         y += rotateDifferences[rotateIndexCheck][1]
-        if(check === 'false') {
-          check = grid[y][x].getAttribute(['data-taken'])
+        if(canNotRotate === 'false') {
+          canNotRotate = grid[y][x].getAttribute(['data-taken'])
         }
         rotateIndexCheck = (rotateIndexCheck + 1) % 4 
       }
     })
-    if (check === 'false') {
+    if (canNotRotate === 'false') {
       this.rotate()
     }
   }

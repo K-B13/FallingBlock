@@ -28,7 +28,7 @@ export class iPiece extends Shape {
 
   checkRotate(grid) {
     // This will be a flag to check if all spots are free if at least one is not free then it will change to true.
-    let check = 'false'
+    let canNotRotate = 'false'
     // Some calculations to find out if its rotated position will be free. The x coordinate will be changed by the xRotateAmount will the y will be changes by the inverse of the xRotateAmount.
     // xRotateIncrement will change the xRotateAmount each iteration.
     // Add a Turnery 0 falsey value
@@ -40,16 +40,16 @@ export class iPiece extends Shape {
       xRotateIncrement = - 1
     }
     this.tiles.forEach(tile => {
-      if(check === 'false') {
+      if(canNotRotate === 'false') {
         let [x, y] = tile
         x += xRotateAmount
         y += (xRotateAmount * - 1)
       // Checks to see if a position has already been found to be taken, if there hasn't been a spot taken yet it will check the current tile. 
-        check = grid[y][x].getAttribute(['data-taken'])
+      canNotRotate = grid[y][x].getAttribute(['data-taken'])
         xRotateAmount += xRotateIncrement
       }
     })
-    if (check === 'false') {
+    if (canNotRotate === 'false') {
       this.rotate()
     }
   }

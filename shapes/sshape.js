@@ -42,20 +42,20 @@ export class sPiece extends Shape {
   
 
   checkRotate(grid) {
-    let check = 'false'
+    let canNotRotate = 'false'
     const rotationAmount = (this.rotateIndex + 1) % 2
-    let testLeft = [ ...this.center ]
-    let testBot = [ ...this.center ]
-    let testBotRight = [ ...this.center ]
-    this.rotations[rotationAmount](testLeft, testBot, testBotRight)
-    const fakeTiles = [testLeft, testBot, testBotRight ]
+    let fakeLeft = [ ...this.center ]
+    let fakeBot = [ ...this.center ]
+    let fakeBotRight = [ ...this.center ]
+    this.rotations[rotationAmount](fakeLeft, fakeBot, fakeBotRight)
+    const fakeTiles = [fakeLeft, fakeBot, fakeBotRight ]
     fakeTiles.forEach((tile) => {
       let [x, y] = tile
-      if(check === 'false') {
-        check = grid[y][x].getAttribute(['data-taken'])
+      if(canNotRotate === 'false') {
+        canNotRotate = grid[y][x].getAttribute(['data-taken'])
       }
     })
-    if (check === 'false') {
+    if (canNotRotate === 'false') {
       this.rotate()
     }
   }
