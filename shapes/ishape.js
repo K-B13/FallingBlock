@@ -63,30 +63,6 @@ export class iPiece extends Shape {
     }
   }
 
-  // Method to lower the shape, make sure the shape doesn't go out of the bottom of the screen. The center is decreased by one and then the rest are recalculated.
-  fall() {
-    // if (this.bot[1] < 10) {
-      this.center[1] += 1
-      this.calculatePieces()
-    // }
-  }
-
-  // Method to move the shape to the left, make sure the shape doesn't go out of the left of the screen. The center is moved by one to the left and then the rest are recalculated.
-  left() {
-    if (this.active) {
-      this.center[0] = this.center[0] - 1
-      this.calculatePieces()
-    }
-  }
-
-  // Method to move the shape to the right, make sure the shape doesn't go out of the right of the screen. The center is moved by one to the right and then the rest are recalculated.
-  right() {
-    if (this.active) {
-      this.center[0] = this.center[0] + 1
-      this.calculatePieces()
-    }
-  }
-
   undoPreviewView() {
     this.center = [this.startX, 2]
     this.calculatePieces()

@@ -96,25 +96,6 @@ export class tPiece extends Shape {
     }
   }
 
-  fall() {
-    this.center[1] += 1
-    this.calculatePieces()
-  }
-
-  left() {
-    if (this.active) {
-      this.center[0] -= 1
-      this.calculatePieces()
-    }
-  }
-
-  right() {
-    if (this.active) {
-      this.center[0] += 1
-      this.calculatePieces()
-    }
-  }
-
   undoPreviewView() {
     this.center = [this.startX, 2]
     this.calculatePieces()

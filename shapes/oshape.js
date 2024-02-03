@@ -23,31 +23,12 @@ export class oPiece extends Shape {
     this.tiles = [this.bot, this.botRight, this.center, this.topRight]
   }
 
-  fall() {
-    this.center[1] += 1
-    this.calculatePieces()
-  }
-
   checkRotate() {
     this.rotate()
   }
 
   rotate() {
     console.log("Nothing happens ye fool")
-  }
-
-  left() {
-    if (this.active) {
-      this.center[0] -= 1
-      this.calculatePieces()
-    }
-  }
-
-  right() {
-    if (this.active) {
-      this.center[0] += 1
-      this.calculatePieces()
-    }
   }
 
   undoPreviewView() {

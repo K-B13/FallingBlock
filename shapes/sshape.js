@@ -67,27 +67,6 @@ export class sPiece extends Shape {
     }
   }
 
-  fall() {
-    if (this.active) {
-      this.center[1] += 1
-      this.calculatePieces()
-    }
-  }
-
-  left() {
-    if (this.active) {
-      this.center[0] -= 1
-      this.calculatePieces()
-    }
-  }
-
-  right() {
-    if (this.active) {
-      this.center[0] += 1
-      this.calculatePieces()
-    }
-  }
-
   undoPreviewView() {
     this.center = [this.startX, 1]
     this.calculatePieces()

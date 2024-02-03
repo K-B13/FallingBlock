@@ -5,15 +5,15 @@ export class Shape {
   }
 
   checkFall(grid) {
-    let check = 'false'
+    let canNotFall = 'false'
     this.tiles.forEach(tile => {
       let [x, y] = tile
       y += 1
-      if(check === 'false') {
-        check = grid[y][x].getAttribute(['data-taken'])
+      if(canNotFall === 'false') {
+        canNotFall = grid[y][x].getAttribute(['data-taken'])
       }
     })
-    if (check === 'true') {
+    if (canNotFall === 'true') {
       this.active = false
       this.tiles.forEach(tile => {
         const [x, y] = tile
@@ -24,31 +24,50 @@ export class Shape {
     }
   }
 
+  fall() {
+    this.center[1] += 1
+    this.calculatePieces()
+  }
+
   checkLeft(grid) {
-    let check = 'false'
+    let canNotLeft = 'false'
     this.tiles.forEach(tile => {
       let [x, y] = tile
       x -= 1
-      if(check === 'false') {
-        check = grid[y][x].getAttribute(['data-taken'])
+      if(canNotLeft === 'false') {
+        canNotLeft = grid[y][x].getAttribute(['data-taken'])
       }
     })
-    if (check === 'false') {
+    if (canNotLeft === 'false') {
       this.left()
     }
   }
 
+  left() {
+    if (this.active) {
+      this.center[0] -= 1
+      this.calculatePieces()
+    }
+  }
+
   checkRight(grid) {
-    let check = 'false'
+    let canNotRight = 'false'
     this.tiles.forEach(tile => {
       let [x, y] = tile
       x += 1
-      if(check === 'false') {
-        check = grid[y][x].getAttribute(['data-taken'])
+      if(canNotRight === 'false') {
+        canNotRight = grid[y][x].getAttribute(['data-taken'])
       }
     })
-    if (check === 'false') {
+    if (canNotRight === 'false') {
       this.right()
+    }
+  }
+
+  right() {
+    if (this.active) {
+      this.center[0] += 1
+      this.calculatePieces()
     }
   }
 }
