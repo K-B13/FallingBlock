@@ -2,7 +2,8 @@ export class oPiece {
   constructor(start) {
     this.color = 'yellow'
     this.active = true
-    this.center = [start, 1]
+    this.startX = start
+    this.center = [this.startX, 1]
 
     this.calculatePieces()
   }
@@ -97,8 +98,13 @@ export class oPiece {
     }
   }
 
-  reset(start) {
-    this.center = [start, 1]
+  undoPreviewView() {
+    this.center = [this.startX, 2]
+    this.calculatePieces()
+  }
+
+  reset() {
+    this.center = [1, 1]
     this.calculatePieces()
   }
 }

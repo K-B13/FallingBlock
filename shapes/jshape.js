@@ -2,7 +2,8 @@ export class jPiece {
   constructor(start) {
     this.color = 'dark-blue'
     this.active = true
-    this.center = [start, 2]
+    this.startX = start
+    this.center = [this.startX, 2]
     this.rotateIndex = 0
 
     this.rotations = [this.calculateOriginalRotation, this.calculate90Rotation, this.calculate180Rotation, this.calculate270Rotation]
@@ -153,8 +154,13 @@ export class jPiece {
     }
   }
 
-  reset(start) {
-    this.center = [start, 2]
+  undoPreviewView() {
+    this.center = [this.startX, 2]
+    this.calculatePieces()
+  }
+
+  reset() {
+    this.center = [1, 1]
     this.rotateIndex = 0
     this.calculatePieces()
   }

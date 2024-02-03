@@ -74,11 +74,12 @@ aside {
 
 .side-row {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   grid-gap: 0.1rem;
+  background-color: red;
 }
 
-.side-row div {
+.side-tile {
   background-color: black;
 }
 

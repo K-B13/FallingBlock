@@ -5,7 +5,8 @@ export class tPiece {
     // This is used to know whether the player should be able to move the piece or not.
     this.active = true
     // The center coordinate for the piece. The start parameter will be the center column and the 1 means it will start 1 space off of the top.
-    this.center = [start, 1]
+    this.startX = start
+    this.center = [this.startX, 1]
     // This will be used to understand which orientation the piece is currently.
     this.rotateIndex = 0
 
@@ -163,8 +164,13 @@ export class tPiece {
     }
   }
 
-  reset(start) {
-    this.center = [start, 1]
+  undoPreviewView() {
+    this.center = [this.startX, 2]
+    this.calculatePieces()
+  }
+
+  reset() {
+    this.center = [1, 1]
     this.rotateIndex = 0
     this.calculatePieces()
   }

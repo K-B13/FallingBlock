@@ -3,7 +3,9 @@ export class iPiece {
     this.color = 'lightblue'
     this.rotateIndex = 1
     this.active = true
-    this.center = [start, 2]
+    this.startX = start
+    this.center = [this.startX, 2]
+    this.startX = start
 
     this.calculatePieces()
   }
@@ -134,9 +136,15 @@ export class iPiece {
     }
   }
 
-  reset(start) {
-    this.center = [start, 2]
+  undoPreviewView() {
+    this.center = [this.startX, 2]
+    this.calculatePieces()
+  }
+  
+  reset() {
+    this.center = [1, 1]
     this.rotateIndex = 1
     this.calculatePieces()
   }
+
 }

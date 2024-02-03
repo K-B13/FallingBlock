@@ -47,18 +47,20 @@ export class Board {
   }
 
   createSideRows(className) {
-
     const sideBoard = document.querySelector(`.${className}`)
     for (let i = 0; i < 4; i++) {
       const row = document.createElement('div');
       row.classList.add('side-row');
       sideBoard.appendChild(row);
-      for (let j = 0; j < 4; j++) {
+      for (let j = 0; j < 3; j++) {
         const tile = document.createElement('div');
+        tile.classList.add('side-tile');
         row.appendChild(tile);
       }
     }
   }
+
+
 
   // Have an array of all unique y coordinates
   // 
