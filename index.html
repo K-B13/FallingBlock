@@ -10,20 +10,37 @@
 </head>
 <body>
   <header>
-    <h1></h1>
-    <button>Drop</button>
-    <button class="test-btn">test</button>
+    <h1>Block Game</h1>
+    <h3 class="player-display"></h3>
   </header>
   <main>
+    <div class="open-screen">
+      <input
+      class="name" 
+      placeholder="Name"
+      />
+      <button
+      class="start-game"
+      type="submit"
+      >Start Game</button>
+    </div>
+    <div class="close-screen hidden">
+      <button class="home-btn">Home Screen</button>
+      <button class="play-again-btn">Play Again</button>
+    </div>
     <aside>
       <div class="reserve-container">
         <div class="reserve-piece">
 
         </div>
       </div>
-      
+      <div class="score-container">
+        <h2>Score</h2>
+        <p class="score-board"></p>
+      </div>
     </aside>
     <div class="board-container"></div>
+
     <aside class="future-pieces">
       <div class="first-future-piece">
 

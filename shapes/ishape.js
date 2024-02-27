@@ -3,10 +3,9 @@ export class iPiece extends Shape {
   constructor(start) {
     super(start)
     this.color = 'lightblue'
-    this.rotateIndex = 1
     this.center = [this.startX, 2]
-    this.startX = start
-
+    this.rotateIndex = 1
+    
     this.calculatePieces()
   }
 
@@ -31,14 +30,10 @@ export class iPiece extends Shape {
     let canNotRotate = 'false'
     // Some calculations to find out if its rotated position will be free. The x coordinate will be changed by the xRotateAmount will the y will be changes by the inverse of the xRotateAmount.
     // xRotateIncrement will change the xRotateAmount each iteration.
-    // Add a Turnery 0 falsey value
-    let xRotateAmount = - 1
-    let xRotateIncrement = 1
     // Checking if the piece is at a different orientation and just uses the inverse for xRotateAmount and xRotateIncrement
-    if (this.rotateIndex === 0) {
-      xRotateAmount = 1
-      xRotateIncrement = - 1
-    }
+    let xRotateAmount = this.rotateIndex ? - 1: 1
+    let xRotateIncrement = this.rotateIndex ? 1: - 1
+
     this.tiles.forEach(tile => {
       if(canNotRotate === 'false') {
         let [x, y] = tile

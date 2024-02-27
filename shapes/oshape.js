@@ -28,11 +28,10 @@ export class oPiece extends Shape {
   }
 
   rotate() {
-    console.log("Nothing happens ye fool")
   }
 
   undoPreviewView() {
-    this.center = [this.startX, 2]
+    this.center = [this.startX, 1]
     this.calculatePieces()
   }
 

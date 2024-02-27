@@ -9,7 +9,10 @@ export class Board {
     // Grabs the board dom element so I can create elements within the board container class.
     this.board = document.querySelector('.board-container');
 
+    this.scoreBoard = document.querySelector('.score-board');
+
     this.score = 0;
+    this.scoreBoard.innerText = this.score
 
     this.fullRows = []
 
@@ -60,8 +63,6 @@ export class Board {
     }
   }
 
-
-
   // Have an array of all unique y coordinates
   // 
   checkRows(piece) {
@@ -88,6 +89,7 @@ export class Board {
           }
         }
         this.score += 1000;
+        this.scoreBoard.innerText = this.score
       })
     }
   }
@@ -100,6 +102,6 @@ export class Board {
       }
     })
   }
-}
 
-  
+
+}
